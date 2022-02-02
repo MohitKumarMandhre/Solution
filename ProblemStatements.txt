@@ -1,0 +1,63 @@
+Section 1: Data Structures
+Solve any two problems out of these three
+——————————————————————————————————————————
+Problem 1: https://www.interviewbit.com/problems/3-sum/
+Problem 2: https://www.interviewbit.com/problems/redundant-braces/
+Problem 3: https://www.interviewbit.com/problems/anagrams/
+
+Second 2: Linux - Solve this basic problem
+https://goo.gl/EPpifR
+
+-------------------------------------------------------------------------
+
+# Language Used - Python
+
+### Problem 1 Solution Code:
+
+import sys
+class Solution:
+    def threeSumClosest(self, A, B):
+        diff = sys.maxsize
+        l = len(A)
+        A.sort()
+        for i in range(l-2):
+            st = i+1
+            en = l-1
+
+            while(st < en):
+                sumc = A[i]+A[st]+A[en] 
+                if sumc == B:
+                    return sumc
+                if abs(B-diff) > abs(B-sumc):
+                    diff = sumc
+                if sumc > B:
+                    en -= 1
+                else:
+                    st += 1
+        return diff
+
+### Problem 2 Solution Code:
+
+class Solution:
+    def braces(self, A):
+        stack = [] 
+        flag = 0
+        for e in A:
+            if e == ')':
+                top = stack[-1]
+                stack.pop()
+                
+                flag = 1
+
+                while( top != '(' ):
+                    if( top in {'+', '-', '/', '*'} ):
+                        flag = 0 
+                    top = stack[-1]
+                    stack.pop()
+                
+                if flag:
+                    return flag
+
+            else:
+                stack.append( e )
+        return flag
